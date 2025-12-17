@@ -13,18 +13,25 @@
     <%= render @todo %>
 
     <!-- Actions -->
-    <div class="mt-6 flex flex-wrap items-center gap-4">
-      <%= link_to "✏️ Edit Todo",
-        edit_todo_path(@todo),
-        class: "rounded-xl bg-sky-100 text-sky-700 px-4 py-2
-                hover:bg-sky-200 transition font-medium" %>
+    <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <%= link_to "← Back to Todos",
+          todos_path,
+          class: "text-emerald-600 hover:underline font-medium" %>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <%= link_to "✏️ Edit Todo",
+          edit_todo_path(@todo),
+          class: "rounded-xl bg-sky-100 text-sky-700 px-4 py-2
+                  hover:bg-sky-200 transition font-medium" %>
 
-      <%= button_to "🗑️ Delete Todo",
-        @todo,
-        method: :delete,
-        data: { confirm: "Are you sure?" },
-        class: "rounded-xl bg-red-100 text-red-600 px-4 py-2
-                hover:bg-red-200 transition font-medium" %>
+        <%= button_to "🗑️ Delete Todo",
+          @todo,
+          method: :delete,
+          data: { confirm: "Are you sure?" },
+          class: "rounded-xl bg-red-100 text-red-600 px-4 py-2
+                  hover:bg-red-200 transition font-medium" %>        
+      </div>
     </div>
 
   </div>
