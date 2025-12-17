@@ -1,16 +1,50 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Todos" %>
 
-<h1>Todos</h1>
+<div class="min-h-screen bg-gradient-to-br from-sky-50 via-yellow-50 to-emerald-50 px-6 py-10">
+  <div class="max-w-4xl mx-auto">
 
-<div id="todos">
-  <% @todos.each do |todo| %>
-    <%= render todo %>
-    <p>
-      <%= link_to "Show this todo", todo %>
-    </p>
-  <% end %>
+    <!-- Flash notice -->
+    <% if notice.present? %>
+      <div class="mb-6 rounded-xl bg-emerald-100 border border-emerald-200
+                  text-emerald-700 px-4 py-3 shadow-sm">
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-4xl font-bold text-sky-600">
+        ☀️ Todos
+      </h1>
+
+      <%= link_to "＋ New Todo",
+        new_todo_path,
+        class: "rounded-xl bg-gradient-to-r from-sky-400 to-emerald-400
+                text-white font-semibold px-5 py-2
+                hover:from-sky-500 hover:to-emerald-500
+                transition shadow-md" %>
+    </div>
+
+    <!-- Todos list -->
+    <div id="todos" class="space-y-6">
+      <% @todos.each do |todo| %>
+        <div class="space-y-2">
+          <%= render todo %>
+
+          <div class="text-right">
+            <%= link_to "View details →",
+              todo_path(todo),
+              class: "text-sky-500 hover:underline font-medium text-sm" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @todos.empty? %>
+      <div class="mt-16 text-center text-gray-400">
+        🌴 No todos yet — enjoy the sunshine and add one!
+      </div>
+    <% end %>
+
+  </div>
 </div>
-
-<%= link_to "New todo", new_todo_path %>

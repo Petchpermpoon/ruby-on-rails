@@ -1,9 +1,11 @@
-<%= form_with(model: todo) do |form| %>
+<%= form_with(model: todo, class: "space-y-6") do |form| %>
   <% if todo.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h2>
+    <div class="rounded-xl bg-red-50 border border-red-200 p-4">
+      <h2 class="text-red-600 font-semibold mb-2">
+        <%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:
+      </h2>
 
-      <ul>
+      <ul class="list-disc list-inside text-red-500 text-sm space-y-1">
         <% todo.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,32 +13,54 @@
     </div>
   <% end %>
 
+  <!-- Name -->
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.label :name, class: "block text-sm font-medium text-emerald-700 mb-1" %>
+    <%= form.text_field :name,
+      class: "w-full rounded-xl border border-emerald-200 px-4 py-2
+              focus:border-sky-400 focus:ring focus:ring-sky-200 focus:ring-opacity-50" %>
   </div>
 
+  <!-- Description -->
   <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.textarea :description %>
-  </div>
-  
-  <div>
-    <%= form.label :completed, style: "display: block" %>
-    <%= form.check_box :completed %>
+    <%= form.label :description, class: "block text-sm font-medium text-emerald-700 mb-1" %>
+    <%= form.textarea :description, rows: 3,
+      class: "w-full rounded-xl border border-emerald-200 px-4 py-2
+              focus:border-sky-400 focus:ring focus:ring-sky-200 focus:ring-opacity-50" %>
   </div>
 
-  <div>
-    <%= form.label :priority, style: "display: block" %>
-    <%= form.number_field :priority %>
+  <!-- Completed -->
+  <div class="flex items-center gap-3">
+    <%= form.check_box :completed,
+      class: "h-5 w-5 rounded border-emerald-300 text-emerald-500
+              focus:ring-sky-300" %>
+    <%= form.label :completed, class: "text-sm font-medium text-gray-700" %>
   </div>
 
+  <!-- Priority -->
   <div>
-    <%= form.label :project_id, style: "display: block" %>
-    <%= form.collection_select :project_id, Project.all, :id, :name, prompt: "Select a project"%>
+    <%= form.label :priority, class: "block text-sm font-medium text-emerald-700 mb-1" %>
+    <%= form.number_field :priority,
+      class: "w-full rounded-xl border border-emerald-200 px-4 py-2
+              focus:border-sky-400 focus:ring focus:ring-sky-200 focus:ring-opacity-50" %>
   </div>
 
+  <!-- Project -->
   <div>
-    <%= form.submit %>
+    <%= form.label :project_id, "Project",
+      class: "block text-sm font-medium text-emerald-700 mb-1" %>
+    <%= form.collection_select :project_id, Project.all, :id, :name,
+      { prompt: "🌴 Select a project" },
+      class: "w-full rounded-xl border border-emerald-200 px-4 py-2 bg-white
+              focus:border-sky-400 focus:ring focus:ring-sky-200 focus:ring-opacity-50" %>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex justify-end gap-3 pt-4">
+    <%= form.submit todo.persisted? ? "Update Todo" : "Create Todo",
+      class: "rounded-xl bg-gradient-to-r from-sky-400 to-emerald-400
+              text-white font-semibold px-6 py-2
+              hover:from-sky-500 hover:to-emerald-500
+              transition shadow-md" %>
   </div>
 <% end %>

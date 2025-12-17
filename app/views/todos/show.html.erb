@@ -1,10 +1,31 @@
-<p style="color: green"><%= notice %></p>
+<div class="min-h-screen bg-gradient-to-br from-sky-50 via-yellow-50 to-emerald-50 px-6 py-10">
+  <div class="max-w-3xl mx-auto">
 
-<%= render @todo %>
+    <!-- Flash notice -->
+    <% if notice.present? %>
+      <div class="mb-6 rounded-xl bg-emerald-100 border border-emerald-200
+                  text-emerald-700 px-4 py-3 shadow-sm">
+        <%= notice %>
+      </div>
+    <% end %>
 
-<div>
-  <%= link_to "Edit this todo", edit_todo_path(@todo) %> |
-  <%= link_to "Back to todos", todos_path %>
+    <!-- Todo card -->
+    <%= render @todo %>
 
-  <%= button_to "Destroy this todo", @todo, method: :delete %>
+    <!-- Actions -->
+    <div class="mt-6 flex flex-wrap items-center gap-4">
+      <%= link_to "✏️ Edit Todo",
+        edit_todo_path(@todo),
+        class: "rounded-xl bg-sky-100 text-sky-700 px-4 py-2
+                hover:bg-sky-200 transition font-medium" %>
+
+      <%= button_to "🗑️ Delete Todo",
+        @todo,
+        method: :delete,
+        data: { confirm: "Are you sure?" },
+        class: "rounded-xl bg-red-100 text-red-600 px-4 py-2
+                hover:bg-red-200 transition font-medium" %>
+    </div>
+
+  </div>
 </div>

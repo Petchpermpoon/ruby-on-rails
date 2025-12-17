@@ -1,7 +1,45 @@
-<h1>Projects</h1>
+<div class="min-h-screen bg-gradient-to-br from-sky-50 via-yellow-50 to-emerald-50 px-6 py-10">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-4xl font-bold text-sky-600">
+        🌴 Projects
+      </h1>
 
-<ul>
-  <% @projects.each do |project| %>
-    <li><%= link_to project.name, project_path(project) %></li>
-  <% end %>
-</ul>
+      <%= link_to "＋ New Project",
+        new_project_path,
+        class: "rounded-xl bg-gradient-to-r from-sky-400 to-emerald-400
+                text-white font-semibold px-5 py-2
+                hover:from-sky-500 hover:to-emerald-500
+                transition shadow-md" %>
+    </div>
+
+    <ul class="space-y-4">
+      <% @projects.each do |project| %>
+        <li>
+          <%= link_to project_path(project),
+            class: "block bg-white rounded-2xl p-5 shadow-sm
+                    hover:shadow-md transition
+                    border border-sky-100" do %>
+
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-semibold text-emerald-700">
+                <%= project.name %>
+              </span>
+
+              <span class="text-sky-400 text-sm">
+                View →
+              </span>
+            </div>
+
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+    <% if @projects.empty? %>
+      <div class="mt-16 text-center text-gray-400">
+        ☀️ No projects yet — create your first one!
+      </div>
+    <% end %>
+  </div>
+</div>

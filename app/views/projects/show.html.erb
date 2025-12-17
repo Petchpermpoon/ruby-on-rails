@@ -1,12 +1,60 @@
-<h1><%= @project.name %></h1>
-<ul>
-  <% @project.todos.each do |todo| %>
-    <li>
-        <%= link_to todo.name, todos_path(todo) %>
-        <% if todo.completed %>✅<% end %>
-    </li>
-  <% end %>
-</ul>
+<div class="min-h-screen bg-gradient-to-br from-sky-50 via-yellow-50 to-emerald-50 px-6 py-10">
+  <div class="max-w-3xl mx-auto">
 
-<%= button_to "Delete Project", project_path(@project), method: :delete %>
-<%= link_to "Edit Project", edit_project_path(@project) %>
+    <!-- Header -->
+    <div class="bg-white rounded-2xl shadow-md p-6 mb-8">
+      <h1 class="text-4xl font-bold text-sky-600 mb-2">
+        <%= @project.name %>
+      </h1>
+
+      <div class="flex flex-wrap gap-3 mt-4">
+        <%= link_to "✏️ Edit Project",
+          edit_project_path(@project),
+          class: "rounded-xl bg-sky-100 text-sky-700 px-4 py-2
+                  hover:bg-sky-200 transition font-medium" %>
+
+        <%= button_to "🗑️ Delete Project",
+          project_path(@project),
+          method: :delete,
+          data: { confirm: "Are you sure?" },
+          class: "rounded-xl bg-red-100 text-red-600 px-4 py-2
+                  hover:bg-red-200 transition font-medium" %>
+      </div>
+    </div>
+
+    <!-- Todos -->
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+      <h2 class="text-2xl font-semibold text-emerald-600 mb-4">
+        📝 Todos
+      </h2>
+
+      <ul class="space-y-3">
+        <% @project.todos.each do |todo| %>
+          <li class="flex items-center justify-between rounded-xl border border-emerald-100
+                     p-4 hover:bg-emerald-50 transition">
+
+            <%= link_to todo_path(todo),
+              class: "flex items-center gap-3" do %>
+
+              <span class="text-lg text-gray-800">
+                <%= todo.name %>
+              </span>
+
+              <% if todo.completed %>
+                <span class="text-emerald-500 text-sm">✅ Completed</span>
+              <% end %>
+            <% end %>
+
+          </li>
+        <% end %>
+      </ul>
+
+      <% if @project.todos.empty? %>
+        <div class="text-center text-gray-400 mt-8">
+          🌤️ No todos yet — enjoy the sunshine or add one!
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

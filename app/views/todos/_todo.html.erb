@@ -1,27 +1,54 @@
-<div id="<%= dom_id todo %>">
+<div id="<%= dom_id todo %>"
+     class="bg-white rounded-2xl shadow-sm border border-emerald-100
+            p-6 space-y-4 hover:shadow-md transition">
+
+  <!-- Name -->
   <div>
-    <strong>Name:</strong>
-    <%= todo.name %>
+    <h3 class="text-xl font-semibold text-sky-600">
+      <%= todo.name %>
+    </h3>
   </div>
 
-  <div>
-    <strong>Description:</strong>
-    <%= todo.description %>
+  <!-- Description -->
+  <% if todo.description.present? %>
+    <div class="text-gray-700">
+      <span class="font-medium text-emerald-700">Description:</span>
+      <p class="mt-1 text-gray-600"><%= todo.description %></p>
+    </div>
+  <% end %>
+
+  <!-- Status & Priority -->
+  <div class="flex flex-wrap gap-4 text-sm">
+    <div class="flex items-center gap-2">
+      <span class="font-medium text-emerald-700">Status:</span>
+      <% if todo.completed %>
+        <span class="inline-flex items-center rounded-full bg-emerald-100
+                     text-emerald-700 px-3 py-1">
+          ✅ Completed
+        </span>
+      <% else %>
+        <span class="inline-flex items-center rounded-full bg-yellow-100
+                     text-yellow-700 px-3 py-1">
+          ⏳ Pending
+        </span>
+      <% end %>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <span class="font-medium text-emerald-700">Priority:</span>
+      <span class="inline-flex items-center rounded-full bg-sky-100
+                   text-sky-700 px-3 py-1">
+        <%= todo.priority %>
+      </span>
+    </div>
   </div>
 
+  <!-- Project -->
   <div>
-    <strong>Completed:</strong>
-    <%= todo.completed %>
-  </div>
-
-  <div>
-    <strong>Priority:</strong>
-    <%= todo.priority %>
-  </div>
-
-  <div>
-    <strong>Project:</strong>
-    <%= link_to todo.project.name, project_path(todo.project) %>
+    <span class="font-medium text-emerald-700">Project:</span>
+    <%= link_to todo.project.name,
+      project_path(todo.project),
+      class: "ml-1 text-sky-500 hover:underline font-medium" %>
   </div>
 
 </div>
