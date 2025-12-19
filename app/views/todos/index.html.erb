@@ -30,11 +30,18 @@
       <% @todos.each do |todo| %>
         <div class="space-y-2">
           <%= render todo %>
+          <div class="flex items-center justify-between mt-6">
+            <div>
+              <%= link_to "← Back to Projects",
+                todo.project,
+                class: "text-emerald-600 hover:underline font-medium" %>
+            </div>
 
-          <div class="text-right">
-            <%= link_to "View details →",
-              todo_path(todo),
-              class: "text-sky-500 hover:underline font-medium text-sm" %>
+            <div>
+              <%= link_to "View details →",
+                todo_path(todo),
+                class: "text-sky-500 hover:underline font-medium" %>
+            </div>
           </div>
         </div>
       <% end %>
