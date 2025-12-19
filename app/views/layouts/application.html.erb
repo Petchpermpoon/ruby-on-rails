@@ -23,10 +23,23 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <% if flash[:notice] %>
-      <p class="flash"><%= flash[:notice] %></p>
+    <body class="min-h-screen bg-linear-to-br from-sky-50 via-yellow-50 to-emerald-50">
+
+    <%= render "shared/topbar" %>
+
+    <!-- Flash notice -->
+    <% if notice.present? %>
+      <div class="max-w-4xl mx-auto mt-6 px-6">
+        <div class="rounded-xl bg-emerald-100 border border-emerald-200
+                    text-emerald-700 px-4 py-3 shadow-sm">
+          <%= notice %>
+        </div>
+      </div>
     <% end %>
-    <%= yield %>
+
+    <main class="px-6 py-8">
+      <%= yield %>
+    </main>
+
   </body>
 </html>
